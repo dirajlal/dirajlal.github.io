@@ -1,54 +1,242 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Ryan's Final Project</title>
-		<meta charset="utf-8">
-		
-	</head>
-	<body>
-		<h2>Final Project - Looking at U.S. Elections Through Data</h2> <!-- <br> break tag = new line-->
-		<ul>
-			<li><a href = "https://bl.ocks.org/ryan-dirajlal">-by Ryan Dirajlal</a></li>
-		</ul>
-		
-		<h2>Project Overview</h2>
-		
-		
-		
-	<ul> <!--unordered list-->
-		<li>My aim in this project is to show election data and how it has changed overtime through visualizations. I then will use these data visualizations to tell a story about the history of which political party is in power during certain times. Through understanding what was happening in the country during certain election years, we can then better understand why one specific party performed better than the other in that year.</li> <!--href = a hyperlink reference-->
-	</ul>
-		<h2>Alpha Release</h2>
-		<li><a href = "https://drive.google.com/file/d/1DBY2Kt2lEwS_ucFqjrS2l5Cs0ER1X9FZ/view?usp=sharing">-Alpha Release PDF</a></li>
-		<ul> <!--unordered list-->
-			<li>I have published my Alpha Release in a PDF hosted on Google Drive, which is linked in the hyperlink above. If you are logged into your Tableau account, you can also interact with two of my visualizations directly on this page.</li> 
-		</ul>
-		
-	
-		<script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script>
-		<div class='tableauPlaceholder' style='width: 1440px; height: 766px;'>
-			<object class='tableauViz' width='1440' height='766' style='display:none;'>
-				<param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' /> 
-				<param name='embed_code_version' value='3' /> 
-				<param name='site_root' value='&#47;t&#47;ryandirajlal' />
-				<param name='name' value='Book1&#47;Sheet1' />
-				<param name='tabs' value='no' />
-				<param name='toolbar' value='yes' />
-				<param name='showAppBanner' value='false' />
-			</object>
-		</div>
-		
-		<script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script>
-		<div class='tableauPlaceholder' style='width: 1440px; height: 766px;'>
-			<object class='tableauViz' width='1440' height='766' style='display:none;'>
-				<param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' /> 
-				<param name='embed_code_version' value='3' /> 
-				<param name='site_root' value='&#47;t&#47;ryandirajlal' />
-				<param name='name' value='Book1&#47;Sheet12' />
-				<param name='tabs' value='no' /><param name='toolbar' value='yes' />
-				<param name='showAppBanner' value='false' />
-			</object>
-		</div>
+<head>
+    <meta charset="utf-8">
+    <title>Multi Line Chart</title>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
 
-	</body>
-</html>
+            /* AXES */
+            /* ticks */
+        .axis line{
+            stroke: #706f6f;
+            stroke-width: 3;
+            shape-rendering: crispEdges;
+        }
+
+        /* axis contour */
+        .axis path {
+            stroke: #706f6f;
+            stroke-width: 3;
+            shape-rendering: crispEdges;
+        }
+
+        /* axis text */
+        .axis text {
+            fill: #2b2929;
+            font-family: Georgia;
+            font-size: 120%;
+        }
+
+        /* LINE CHART */
+        path.line-0 {
+            fill: none;
+            stroke: blue;
+            stroke-width: 3;
+        }
+
+        path.line-1 {
+            fill: none;
+            stroke: red;
+            stroke-width: 3;
+        }
+
+        /*path.line-2 {*/
+        /*    fill: none;*/
+        /*    stroke: white;*/
+
+        /*}*/
+
+        .serie_label {
+            fill: #2b2929;
+            font-family: Georgia;
+            font-size: 80%;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="svg-container">
+    <h1>Headline…</h1>
+    <p>Explanatory text…</p>
+    <h2>Final Project - Looking at U.S. Elections Through Data</h2> <!-- <br> break tag = new line-->
+    <ul>
+        <li><a href = "https://bl.ocks.org/ryan-dirajlal">-by Ryan Dirajlal</a></li>
+    </ul>
+
+    <h2>Project Overview</h2>
+
+
+
+    <ul> <!--unordered list-->
+        <li>My aim in this project is to show election data and how it has changed overtime through visualizations. I then will use these data visualizations to tell a story about the history of which political party is in power during certain times. Through understanding what was happening in the country during certain election years, we can then better understand why one specific party performed better than the other in that year.</li> <!--href = a hyperlink reference-->
+    </ul>
+    <h2>Alpha Release</h2>
+    <li><a href = "https://drive.google.com/file/d/1DBY2Kt2lEwS_ucFqjrS2l5Cs0ER1X9FZ/view?usp=sharing">-Alpha Release PDF</a></li>
+    <ul> <!--unordered list-->
+        <li>I have published my Alpha Release in a PDF hosted on Google Drive, which is linked in the hyperlink above. If you are logged into your Tableau account, you can also interact with two of my visualizations directly on this page.</li>
+    </ul>
+    <div id="chartContainer">…</div>
+    <h1>Headline…</h1>
+    <div id="footer">…</div>
+    <script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script>
+    <div class='tableauPlaceholder' style='width: 1440px; height: 766px;'>
+        <object class='tableauViz' width='1440' height='766' style='display:none;'>
+            <param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='site_root' value='&#47;t&#47;ryandirajlal' />
+            <param name='name' value='Book1&#47;Sheet1' />
+            <param name='tabs' value='no' />
+            <param name='toolbar' value='yes' />
+            <param name='showAppBanner' value='false' />
+        </object>
+    </div>
+
+    <script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script>
+    <div class='tableauPlaceholder' style='width: 1440px; height: 766px;'>
+        <object class='tableauViz' width='1440' height='766' style='display:none;'>
+            <param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' />
+            <param name='embed_code_version' value='3' />
+            <param name='site_root' value='&#47;t&#47;ryandirajlal' />
+            <param name='name' value='Book1&#47;Sheet12' />
+            <param name='tabs' value='no' /><param name='toolbar' value='yes' />
+            <param name='showAppBanner' value='false' />
+        </object>
+    </div>
+</div>
+<script>
+    //------------------------1. PREPARATION------------------------//
+    //-----------------------------SVG------------------------------//
+    const width = 1000;
+    const height = 500;
+    const margin = 5;
+    const padding = 5;
+    const adj = 40;
+    // we are appending SVG first
+    const lineChart = d3.select("div#chartContainer").append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "-"
+            + adj + " -"
+            + adj + " "
+            + (width + adj *3) + " "
+            + (height + adj*3))
+        .style("padding", padding)
+        .style("margin", margin)
+        .classed("svg-content", true);
+
+    //-----------------------------DATA-----------------------------//
+
+    const timeConv = d3.timeParse("%Y");
+    const dataset = d3.csv("data.csv");
+    dataset.then(function(data) {
+        var slices = data.columns.slice(1).map(function(id) {
+            return {
+                id: id,
+                values: data.map(function(d){
+                    return {
+                        date: timeConv(d.date),
+                        measurement: +d[id]
+                    };
+                })
+            };
+        });
+
+//----------------------------SCALES----------------------------//
+        const xScale = d3.scaleTime().range([0,width]);
+        const yScale = d3.scaleLinear().rangeRound([height, 0]);
+        xScale.domain(d3.extent(data, function(d){
+            return timeConv(d.date)}));
+        yScale.domain([(0), d3.max(slices, function(c) {
+            return d3.max(c.values, function(d) {
+                return d.measurement + 4; });
+        })
+        ]);
+
+//-----------------------------AXES-----------------------------//
+        const yaxis = d3.axisLeft()
+            .ticks((slices[0].values).length)
+            .scale(yScale);
+
+        const xaxis = d3.axisBottom()
+            .ticks(d3.timeYear.every(4))
+            .tickFormat(d3.timeFormat('%Y'))
+            .scale(xScale);
+
+//----------------------------LINES-----------------------------//
+        const line = d3.line()
+            .x(function(d) { return xScale(d.date); })
+            .y(function(d) { return yScale(d.measurement); });
+
+        let id = 0;
+        const ids = function () {
+            return "line-"+id++;
+        }
+//-------------------------2. DRAWING---------------------------//
+//-----------------------------AXES-----------------------------//
+        lineChart.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xaxis);
+
+        lineChart.append("g")
+            .attr("class", "axis")
+            .call(yaxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("dy", ".75em")
+            .attr("y", 6)
+            .style("text-anchor", "end")
+            .text("Electoral College Votes");
+
+//----------------------------LINES-----------------------------//
+        const lines = lineChart.selectAll("lines")
+            .data(slices)
+            .enter()
+            .append("g");
+
+        lines.append("path")
+            .attr("class", ids)
+            .attr("d", function(d) { return line(d.values); })
+            .on("mouseover", function(d) {
+                console.log( d);
+                    // line1's legend is hovered
+                d3.select(this).classed("highlight", true)
+
+                if (d.id == "Democrats")
+                {
+                    lineChart.selectAll(".line-0").style("stroke-width", "4px");
+                    lineChart.selectAll(".line-1").style("stroke", "gray");
+                    lineChart.selectAll(".line-1").style("stroke-opacity", "0.5");
+                }
+                else
+                {
+                    lineChart.selectAll(".line-1").style("stroke-width", "4px")
+                    lineChart.selectAll(".line-0").style("stroke", "gray");
+                    lineChart.selectAll(".line-0").style("stroke-opacity", "0.5");
+                }
+
+            })
+            .on("mouseout", function() {
+                // revert the styles
+                lineChart.selectAll(".line-0").style("stroke-width", "3px");
+                lineChart.selectAll(".line-0").style("stroke", "blue");
+                lineChart.selectAll(".line-0").style("stroke-opacity", "1");
+                lineChart.selectAll(".line-1").style("stroke-width", "3px");
+                lineChart.selectAll(".line-1").style("stroke-opacity", "1");
+                lineChart.selectAll(".line-1").style("stroke", "red");
+            });;
+
+        lines.append("text")
+            .attr("class","serie_label")
+            .datum(function(d) {
+                return {
+                    id: d.id,
+                    value: d.values[d.values.length - 1]}; })
+            .attr("transform", function(d) {
+                return "translate(" + (xScale(d.value.date) - 5)
+                    + "," + (yScale(d.value.measurement) + 5 ) + ")"; })
+            .attr("x", 5)
+            .text(function(d) { return d.id; });
+
+    });
+</script>
+</body>

@@ -4,15 +4,16 @@
     <title>Multi Line Chart</title>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <style>
 
-            /* AXES */
-            /* ticks */
+    <style>
         .axis line{
             stroke: #706f6f;
             stroke-width: 3;
             shape-rendering: crispEdges;
         }
+
+            /* AXES */
+            /* ticks */
 
         /* axis contour */
         .axis path {
@@ -52,12 +53,12 @@
             font-family: Georgia;
             font-size: 80%;
         }
+
     </style>
+
 </head>
 <body>
 <div id="container" class="svg-container">
-    <h1>Headline…</h1>
-    <p>Explanatory text…</p>
     <h2>Final Project - Looking at U.S. Elections Through Data</h2> <!-- <br> break tag = new line-->
     <ul>
         <li><a href = "https://bl.ocks.org/ryan-dirajlal">-by Ryan Dirajlal</a></li>
@@ -72,37 +73,29 @@
     </ul>
     <h2>Alpha Release</h2>
     <li><a href = "https://drive.google.com/file/d/1DBY2Kt2lEwS_ucFqjrS2l5Cs0ER1X9FZ/view?usp=sharing">-Alpha Release PDF</a></li>
+    <h2>Beta Release</h2>
     <ul> <!--unordered list-->
-        <li>I have published my Alpha Release in a PDF hosted on Google Drive, which is linked in the hyperlink above. If you are logged into your Tableau account, you can also interact with two of my visualizations directly on this page.</li>
+        <li><a href = "https://bl.ocks.org/ryan-dirajlal/raw/5f2c9c730ceed6d4635a66e7aabdb197/?raw=true">-Election Map</a></li>
+        <li><a href = "https://bl.ocks.org/ryan-dirajlal/raw/35cf7b7564d7f14f03a062c1f16c0e6d/?raw=true">-Parallel Coordinates Chart</a></li>
+        <li><a href = "https://bl.ocks.org/ryan-dirajlal/raw/98ae16c012285677da319eed88b381bf/?raw=true">-Bar Chart</a></li>
     </ul>
-    <div id="chartContainer">…</div>
-    <h1>Headline…</h1>
-    <div id="footer">…</div>
-    <script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script>
-    <div class='tableauPlaceholder' style='width: 1440px; height: 766px;'>
-        <object class='tableauViz' width='1440' height='766' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='site_root' value='&#47;t&#47;ryandirajlal' />
-            <param name='name' value='Book1&#47;Sheet1' />
-            <param name='tabs' value='no' />
-            <param name='toolbar' value='yes' />
-            <param name='showAppBanner' value='false' />
-        </object>
-    </div>
+    <h2>
+        Presidential Elections from 1976 to 2020
+    </h2>
 
-    <script type='text/javascript' src='https://10ay.online.tableau.com/javascripts/api/viz_v1.js'></script>
-    <div class='tableauPlaceholder' style='width: 1440px; height: 766px;'>
-        <object class='tableauViz' width='1440' height='766' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2F10ay.online.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='site_root' value='&#47;t&#47;ryandirajlal' />
-            <param name='name' value='Book1&#47;Sheet12' />
-            <param name='tabs' value='no' /><param name='toolbar' value='yes' />
-            <param name='showAppBanner' value='false' />
-        </object>
-    </div>
+    <div id="chartContainer">…</div>
+    <div id="graphic"></div>
+    <div id="footer">As shown in the line chart above, it seems like there is no trend to the presidential election
+    results in the U.S. However, after analyzing the other graphs in this project, we can conclude that the American
+    electorate almost always pushes back against and "punishes" the current party in power. This is exemplefied in the line
+    chart. For instance, just looking at the 1980, 1984, and 1988 presidential elections would seem like there is no way
+    Democrats could regain control of the White House anytime soon. In each of these three elections, Republicans won almost
+    more than 300 electoral votes than the Democrats, and 1992 also had a Republican incumbent (Bush). However, no matter how in-control
+    a party may seem, nobody is invincible to the American Electorate's infamous pushback that I have previously described.
+    Thus, in 1992, Bill Clinton won back the Senate and the White House for the Democratic Party. This back-and-forth between
+    Republicans and Democrats holding control has continued in every other election up to the previous election in 2020.</div>
 </div>
+
 <script>
     //------------------------1. PREPARATION------------------------//
     //-----------------------------SVG------------------------------//
@@ -111,6 +104,8 @@
     const margin = 5;
     const padding = 5;
     const adj = 40;
+
+
     // we are appending SVG first
     const lineChart = d3.select("div#chartContainer").append("svg")
         .attr("preserveAspectRatio", "xMinYMin meet")
@@ -122,6 +117,10 @@
         .style("padding", padding)
         .style("margin", margin)
         .classed("svg-content", true);
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
     //-----------------------------DATA-----------------------------//
 
@@ -163,8 +162,15 @@
 
 //----------------------------LINES-----------------------------//
         const line = d3.line()
+            //.defined(function(d) { return d.measurement >= 0 && d.measurement <= 270; })
             .x(function(d) { return xScale(d.date); })
             .y(function(d) { return yScale(d.measurement); });
+
+        const dangerLine = d3.line()
+            .defined(function(d) { return d.measurement >= 270; })
+            .x(function(d) { return xScale(d.date); })
+            .y(function(d) { return yScale(d.measurement); });
+
 
         let id = 0;
         const ids = function () {
@@ -188,16 +194,28 @@
             .text("Electoral College Votes");
 
 //----------------------------LINES-----------------------------//
+        const show = (event, d) => {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 1)
+            tooltip.html("Housing cost: ")
+                .style("left", (d3.mouse(event)[0]+70))
+                .style("top", (d3.mouse(this)[1]))
+        };
         const lines = lineChart.selectAll("lines")
             .data(slices)
             .enter()
             .append("g");
 
+      //  lines.append("path")
+          //  .attr("d", function(d) { return dangerLine(d.values); });
         lines.append("path")
             .attr("class", ids)
             .attr("d", function(d) { return line(d.values); })
+            // .attr("d", function(d) { return dangerLine(d.values); })
             .on("mouseover", function(d) {
-                console.log( d);
+               // show()
+                console.log(d.id);
                     // line1's legend is hovered
                 d3.select(this).classed("highlight", true)
 
@@ -238,5 +256,9 @@
             .text(function(d) { return d.id; });
 
     });
+
 </script>
+
+
+
 </body>

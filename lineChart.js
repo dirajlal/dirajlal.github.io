@@ -228,6 +228,8 @@ const barChart = d3.select("div#barChart")
     .append("g")
     .attr("transform", `translate(${barMargin.left}, ${barMargin.top})`);
 
+
+
 // Parse the Data
 d3.csv("barChartData.csv").then ( function(data) {
 
@@ -265,6 +267,50 @@ d3.csv("barChartData.csv").then ( function(data) {
         .attr("height", y.bandwidth())
         .attr("fill", "teal")
 
+
+
+    bars =  barChart.append("g")
+        .attr("transform", `translate(0, ${barHeight})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .style("font", "15px times");
+    bars.append("g")
+        .call(d3.axisLeft(y))
+        .style("font", "15px times")
+    bars.selectAll("myRect")
+        .data(data)
+        .join("rect")
+        .attr("x", x(0) )
+        .attr("y", d => y(d.Country))
+        .attr("width", d => x(d.Value))
+        .attr("height", y.bandwidth())
+        .attr("fill", "teal")
+
+
+    barChart.append("text")
+        .data(data)
+        //.attr("x", d => x(d.Value) )
+        .attr("x", 475)
+        .attr("y", d => y(d.Country) + 30)
+        .attr("dy", ".35em")
+        .text(function(d) { return d.Value; });
+
+    barChart.append("text")
+        .data(data)
+        //.attr("x", d => x(d.Value) )
+        .attr("x", function(d) { return x(d.Value[1]) + 90; })
+        .attr("y", 250)
+        .attr("dy", ".35em")
+        .text("14");
+
+    barChart.append("text")
+        .data(data)
+        //.attr("x", d => x(d.Value) )
+        .attr("x", 320)
+        .attr("y", 160)
+        .attr("dy", ".35em")
+        .text("25");
 });
 
 //----------------------------Parallel coordinates-----------------------------//

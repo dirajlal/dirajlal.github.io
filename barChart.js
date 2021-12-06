@@ -26,7 +26,8 @@ d3.csv("barChartData.csv").then ( function(data) {
         .call(d3.axisBottom(x))
         .selectAll("text")
         .attr("transform", "translate(-10,0)rotate(-45)")
-        .style("text-anchor", "end");
+        .style("text-anchor", "end")
+        .style("font", "20px times");
 
     // Y axis
     const y = d3.scaleBand()
